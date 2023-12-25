@@ -4,6 +4,6 @@ interface Props {
   children: ReactNode;
 }
 
-export default async function Layout({ children }: Props) {
-  return <div>{children}</div>;
+export default async function HomeLayout({ children }: Props) {
+  return <div>홈 레이아웃 {children}</div>;
 }
