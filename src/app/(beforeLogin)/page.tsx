@@ -1,9 +1,9 @@
 import Link from "next/link";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <div className={styles.left}>
         <img
           src="https://img.freepik.com/premium-vector/new-twitter-logo-x-2023-twitter-x-logo-vector-download_691560-10809.jpg"
@@ -21,6 +21,6 @@ export default function Home() {
           로그인
         </Link>
       </div>
-    </main>
+    </>
   );
 }

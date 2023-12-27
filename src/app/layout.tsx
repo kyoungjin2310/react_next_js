@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
+import styles from "./page.module.css";
 
 const notoSansKr = Noto_Sans_KR({
   weight: "400",
@@ -27,8 +28,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        루트 레이아웃
-        {children}
+        <div className={styles.container}>{children}</div>
       </body>
     </html>
   );
