@@ -3,14 +3,16 @@ import styles from "@/app/page.module.css";
 interface Props {
   children: ReactNode;
   modal: ReactNode;
+  modal2: ReactNode;
 }
 
-export default function Layout({ children, modal }: Props) {
+export default function Layout({ children, modal, modal2 }: Props) {
   return (
     <div className={styles.container}>
       비포 로그인 레이아웃
       {children}
       {modal}
+      {modal2}
     </div>
   );
 }
