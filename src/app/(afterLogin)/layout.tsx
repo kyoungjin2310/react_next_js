@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import style from "@/app/(afterLogin)/layout.module.css";
 import Link from "next/link";
+import NavMenu from "./_component/NavMenu";
 
 type Props = { children: ReactNode; modal: ReactNode };
 export default async function AfterLoginLayout({ children, modal }: Props) {
@@ -22,6 +23,11 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
                 </svg>
               </div>
             </Link>
+            <nav>
+              <ul>
+                <NavMenu />
+              </ul>
+            </nav>
           </div>
         </section>
       </header>
