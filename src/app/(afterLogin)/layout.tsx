@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import style from "@/app/(afterLogin)/layout.module.css";
 import Link from "next/link";
 import NavMenu from "./_component/NavMenu";
+import LogOutButton from "./_component/LogOutButton";
 
 type Props = { children: ReactNode; modal: ReactNode };
 export default async function AfterLoginLayout({ children, modal }: Props) {
@@ -27,7 +28,11 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
               <ul>
                 <NavMenu />
               </ul>
+              <Link href="/compose/tweet" className={style.postButton}>
+                게시하기
+              </Link>
             </nav>
+            <LogOutButton />
           </div>
         </section>
       </header>
