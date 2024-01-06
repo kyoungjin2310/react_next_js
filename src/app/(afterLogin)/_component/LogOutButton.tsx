@@ -7,7 +7,8 @@ export default function LogoutButton() {
     user: {
       email: "",
       name: "",
-      image: "",
+      //이미지 - public 폴더에 넣고 절대경로 지정
+      image: "/next.svg",
     },
   };
 
