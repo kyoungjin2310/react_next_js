@@ -4,7 +4,7 @@ import Link from "next/link";
 import NavMenu from "./_component/NavMenu";
 import LogOutButton from "./_component/LogOutButton";
 import TrendSection from "./_component/TrendSection";
-import FollowRecommendSection from "./_component/FollowRecommendSection";
+import FollowRecommend from "./_component/FollowRecommend";
 
 type Props = { children: ReactNode; modal: ReactNode };
 export default async function AfterLoginLayout({ children, modal }: Props) {
@@ -42,10 +42,7 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
         <div className={style.rightSectionInner}>
           <main className={style.main}>{children}</main>
           <section className={style.rightSection}>
-            <TrendSection />
-            <FollowRecommendSection />
-            <div className={style.followRecommend}>
-              <h3>팔로우 추천</h3>
+            <div style={{ marginBottom: 60, width: "inherit" }}>
               <form className={style.search}>
                 <svg width={20} viewBox="0 0 24 24" aria-hidden="true">
                   <g>
@@ -54,6 +51,11 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
                 </svg>
                 <input name="search" type="search" />
               </form>
+            </div>
+            <TrendSection />
+            <div className={style.followRecomend}>
+              <h3>팔로우 추천</h3>
+              <FollowRecommend />
             </div>
           </section>
         </div>
