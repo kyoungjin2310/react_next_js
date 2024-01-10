@@ -4,7 +4,7 @@ import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import style from "./postForm.module.css";
 
 export default function PostForm() {
-  // const imageRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   const me = {
     id: "zerohch0",
@@ -19,9 +19,9 @@ export default function PostForm() {
     e.preventDefault();
   };
 
-  // const onClickButton = () => {
-  //   imageRef.current?.click();
-  // };
+  const onClickButton = () => {
+    imageRef.current?.click();
+  };
 
   return (
     <form className={style.postForm} onSubmit={onSubmit}>
@@ -44,12 +44,12 @@ export default function PostForm() {
                 name="imageFiles"
                 multiple
                 hidden
-                // ref={imageRef}
+                ref={imageRef}
               />
               <button
                 className={style.uploadButton}
                 type="button"
-                // onClick={onClickButton}
+                onClick={onClickButton}
               >
                 <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                   <g>
