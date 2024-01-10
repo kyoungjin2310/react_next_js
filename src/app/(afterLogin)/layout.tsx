@@ -53,7 +53,7 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
               </form>
             </div>
             <TrendSection />
-            <div className={style.followRecomend}>
+            <div className={style.followRecommend}>
               <h3>팔로우 추천</h3>
               <FollowRecommend />
             </div>
