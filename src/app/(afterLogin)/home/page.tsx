@@ -5,12 +5,10 @@ import TabProvider from "./_component/TabProvider";
 
 export default function Home() {
   return (
-    <main>
-      <TabProvider>
-        <Tab />
-        <PostForm />
-        <Post />
-      </TabProvider>
-    </main>
+    <TabProvider>
+      <Tab />
+      <PostForm />
+      <Post />
+    </TabProvider>
   );
 }
