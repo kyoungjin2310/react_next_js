@@ -1,14 +1,25 @@
 "use client";
 import style from "./post.module.css";
+//css class name에 조건
+import cx from "classnames";
 
 type Props = {
   white?: boolean;
 };
-
 export default function ActionButtons({ white }: Props) {
+  const commented = false;
+  const reposted = false;
+  const liked = false;
+
   return (
     <div className={style.actionButtons}>
-      <div>
+      <div
+        className={cx(
+          style.commentButton,
+          { [style.commented]: commented },
+          white && style.white,
+        )}
+      >
         <button>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -18,7 +29,13 @@ export default function ActionButtons({ white }: Props) {
         </button>
         <div className={style.count}>{1 || ""}</div>
       </div>
-      <div>
+      <div
+        className={cx(
+          style.repostButton,
+          reposted && style.reposted,
+          white && style.white,
+        )}
+      >
         <button>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -28,7 +45,13 @@ export default function ActionButtons({ white }: Props) {
         </button>
         <div className={style.count}>{1 || ""}</div>
       </div>
-      <div>
+      <div
+        className={cx([
+          style.heartButton,
+          liked && style.liked,
+          white && style.white,
+        ])}
+      >
         <button>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
