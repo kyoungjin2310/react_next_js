@@ -7,11 +7,14 @@ type Props = {
 export default function Post({ noImage }: Props) {
   const target = {
     User: {
-      id: "",
-      image: "",
-      nickname: "",
+      id: "test",
+      image:
+        "https://images.unsplash.com/photo-1704996440137-44a1eb3c71ee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      nickname: "test name",
     },
-    content: "",
+    content: "test diary",
+    createdAt: `${new Date()}`,
+    Images: [] as any[],
   };
   return (
     <div>
@@ -30,6 +33,7 @@ export default function Post({ noImage }: Props) {
               <span className={style.postUserId}>@{target.User.id}</span>
               &nbsp; · &nbsp;
             </Link>
+            <span className={style.postDate}>{target.createdAt}</span>
           </div>
           <div>{target.content}</div>
         </div>
