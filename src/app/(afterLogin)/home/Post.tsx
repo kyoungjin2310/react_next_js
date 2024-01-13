@@ -1,5 +1,10 @@
 import style from "./post.module.css";
 import Link from "next/link";
+import dayjs from "dayjs";
+//fromNow 사용하려면 불러와야함
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 type Props = {
   noImage?: boolean;
@@ -13,7 +18,7 @@ export default function Post({ noImage }: Props) {
       nickname: "test name",
     },
     content: "test diary",
-    createdAt: `${new Date()}`,
+    createdAt: new Date(),
     Images: [] as any[],
   };
   return (
@@ -33,7 +38,10 @@ export default function Post({ noImage }: Props) {
               <span className={style.postUserId}>@{target.User.id}</span>
               &nbsp; · &nbsp;
             </Link>
-            <span className={style.postDate}>{target.createdAt}</span>
+            <span className={style.postDate}>
+              {/* 게시글 작성 몇분전에 했는지 조회 기능  */}
+              {dayjs(target.createdAt).fromNow(true)}
+            </span>
           </div>
           <div>{target.content}</div>
         </div>
