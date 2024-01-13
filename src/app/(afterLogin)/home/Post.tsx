@@ -3,7 +3,13 @@ import Link from "next/link";
 import dayjs from "dayjs";
 //fromNow 사용하려면 불러와야함
 import relativeTime from "dayjs/plugin/relativeTime";
+//한글
+import "dayjs/locale/ko";
 
+//한글
+dayjs.locale("ko");
+
+//fromNow 사용
 dayjs.extend(relativeTime);
 
 type Props = {
