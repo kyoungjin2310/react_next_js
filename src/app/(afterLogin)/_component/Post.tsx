@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //한글
 import "dayjs/locale/ko";
+import ActionButton from "./ActionButton";
 
 //한글
 dayjs.locale("ko");
@@ -50,6 +51,7 @@ export default function Post({ noImage }: Props) {
             </span>
           </div>
           <div>{target.content}</div>
+          <ActionButton />
         </div>
       </div>
     </article>
