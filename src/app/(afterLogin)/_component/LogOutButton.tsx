@@ -5,7 +5,7 @@ import style from "./logoutButton.module.css";
 export default function LogoutButton() {
   const me = {
     user: {
-      email: "test.com",
+      email: "testEmail",
       name: "test",
       //이미지 - public 폴더에 넣고 절대경로 지정
       image:
