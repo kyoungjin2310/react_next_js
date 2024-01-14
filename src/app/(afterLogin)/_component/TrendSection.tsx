@@ -8,7 +8,7 @@ const TrendSection = () => {
   //path name 조회
   const pathname = usePathname();
 
-  if (pathname === "/explore") return null;
+  if (pathname === "/explore") return <Trend />;
 
   return (
     <div className={style.trendBg}>
