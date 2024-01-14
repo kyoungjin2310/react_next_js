@@ -1,3 +1,5 @@
-export default function Home() {
-  return <main>트윗페이지</main>;
+import Home from "../../home/page";
+
+export default function Page() {
+  return <Home />;
 }
