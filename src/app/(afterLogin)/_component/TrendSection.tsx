@@ -1,7 +1,15 @@
+"use client";
+
 import Trend from "./Trend";
 import style from "./trendSection.module.css";
+import { usePathname } from "next/navigation";
 
 const TrendSection = () => {
+  //path name 조회
+  const pathname = usePathname();
+
+  if (pathname === "/explore") return null;
+
   return (
     <div className={style.trendBg}>
       <div className={style.trend}>
