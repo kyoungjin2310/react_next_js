@@ -7,7 +7,9 @@ export default function TweetModal() {
   const imageRef = useRef<HTMLInputElement>(null);
   const onSubmit = () => {};
   const onClickClose = () => {};
-  const onClickButton = () => {};
+  const onClickButton = () => {
+    imageRef.current?.click();
+  };
   const onChangeContent = () => {};
 
   const me = {
