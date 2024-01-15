@@ -5,7 +5,8 @@ import Post from "@/app/(afterLogin)/_component/Post";
 import Tab from "../search/_component/Tab";
 
 type Props = {
-  searchParams: { q: string };
+  //query 주소
+  searchParams: { q: string; f: string; pf: string };
 };
 
 //query - props안에 있음
