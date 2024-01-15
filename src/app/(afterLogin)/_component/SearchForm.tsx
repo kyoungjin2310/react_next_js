@@ -2,7 +2,9 @@
 
 import style from "@/app/(afterLogin)/_component/rightSearchZone.module.css";
 
-const SearchForm = () => {
+type Props = { q?: string };
+
+const SearchForm = ({ q }: Props) => {
   return (
     <form className={style.search}>
       <svg width={20} viewBox="0 0 24 24" aria-hidden="true">
