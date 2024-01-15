@@ -6,6 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 //한글
 import "dayjs/locale/ko";
 import ActionButton from "./ActionButton";
+import PostArticle from "./PostArticle";
 
 //한글
 dayjs.locale("ko");
@@ -18,6 +19,7 @@ type Props = {
 };
 export default function Post({ noImage }: Props) {
   const target = {
+    postId: 2,
     User: {
       id: "test",
       image:
@@ -29,7 +31,7 @@ export default function Post({ noImage }: Props) {
     Images: [] as any[],
   };
   return (
-    <article className={style.post}>
+    <PostArticle post={target}>
       <div className={style.postWrapper}>
         <div className={style.postUserSection}>
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
@@ -54,6 +56,6 @@ export default function Post({ noImage }: Props) {
           <ActionButton />
         </div>
       </div>
-    </article>
+    </PostArticle>
   );
 }
