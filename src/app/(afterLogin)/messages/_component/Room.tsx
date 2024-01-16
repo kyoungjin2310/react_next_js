@@ -22,7 +22,8 @@ export default function Room() {
   };
 
   const onClick = () => {
-    // router.push(`/messages/${user.Messages.at(-1)?.roomId}`);
+    //배열 마지막 요소 가져오기 배열.at(-1)
+    router.push(`/messages/${user.Messages.at(-1)?.roomId}`);
   };
 
   return (
