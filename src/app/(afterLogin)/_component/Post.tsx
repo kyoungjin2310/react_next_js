@@ -7,6 +7,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import ActionButton from "./ActionButton";
 import PostArticle from "./PostArticle";
+import { faker } from "@faker-js/faker";
 
 //한글
 dayjs.locale("ko");
@@ -30,6 +31,9 @@ export default function Post({ noImage }: Props) {
     createdAt: new Date(),
     Images: [] as any[],
   };
+  if (Math.random() > 0.5) {
+    target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
+  }
   return (
     <PostArticle post={target}>
       <div className={style.postWrapper}>
@@ -54,6 +58,14 @@ export default function Post({ noImage }: Props) {
           </div>
           <div>{target.content}</div>
           <ActionButton />
+          <div className={style.postImageSection}>
+            {target.Images && target.Images.length > 0 && (
+              <Link
+                href={`${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
+                className={style.postImageSection}
+              />
+            )}
+          </div>
         </div>
       </div>
     </PostArticle>
