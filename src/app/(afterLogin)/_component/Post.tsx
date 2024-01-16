@@ -5,9 +5,10 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //한글
 import "dayjs/locale/ko";
-import ActionButton from "./ActionButton";
-import PostArticle from "./PostArticle";
+import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
+import PostArticle from "@/app/(afterLogin)/_component/PostArticle";
 import { faker } from "@faker-js/faker";
+import PostImages from "@/app/(afterLogin)/_component/PostImages";
 
 //한글
 dayjs.locale("ko");
@@ -20,7 +21,7 @@ type Props = {
 };
 export default function Post({ noImage }: Props) {
   const target = {
-    postId: 2,
+    postId: 1,
     User: {
       id: "test",
       image:
@@ -31,9 +32,16 @@ export default function Post({ noImage }: Props) {
     createdAt: new Date(),
     Images: [] as any[],
   };
-  if (Math.random() > 0.5) {
-    target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
+
+  if (Math.random() > 0.5 && !noImage) {
+    target.Images.push(
+      { imageId: 1, link: faker.image.urlLoremFlickr() },
+      { imageId: 2, link: faker.image.urlLoremFlickr() },
+      { imageId: 3, link: faker.image.urlLoremFlickr() },
+      { imageId: 4, link: faker.image.urlLoremFlickr() },
+    );
   }
+
   return (
     <PostArticle post={target}>
       <div className={style.postWrapper}>
@@ -52,20 +60,14 @@ export default function Post({ noImage }: Props) {
               &nbsp; · &nbsp;
             </Link>
             <span className={style.postDate}>
-              {/* 게시글 작성 몇분전에 했는지 조회 기능  */}
               {dayjs(target.createdAt).fromNow(true)}
             </span>
           </div>
           <div>{target.content}</div>
-          <ActionButton />
-          <div className={style.postImageSection}>
-            {target.Images && target.Images.length > 0 && (
-              <Link
-                href={`${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
-                className={style.postImageSection}
-              />
-            )}
+          <div>
+            <PostImages post={target} />
           </div>
+          <ActionButtons />
         </div>
       </div>
     </PostArticle>
