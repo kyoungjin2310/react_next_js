@@ -23,6 +23,11 @@
   height: 550px;
 }
 
+.error {
+  font-weight: bold;
+  color: red;
+}
+
 .modalHeader {
   padding: 36px 80px 20px;
   font-size: 31px;
