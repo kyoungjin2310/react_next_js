@@ -1,95 +1,140 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
 
-export default function Home() {
+import style from "./signup.module.css";
+import { useRouter } from "next/navigation";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
+
+export default function SignupModal() {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState<File>();
+
+  const router = useRouter();
+  const onClickClose = () => {
+    router.back();
+    // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
+  };
+
+  const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setId(e.target.value);
+  };
+
+  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setPassword(e.target.value);
+  };
+  const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setNickname(e.target.value);
+  };
+  const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.target.files && setImageFile(e.target.files[0]);
+  };
+
+  const onSubmit: FormEventHandler = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:9090/api/users", {
+      method: "post",
+      body: JSON.stringify({
+        id,
+        nickname,
+        image,
+        password,
+      }),
+      credentials: "include",
+    })
+      .then((response: Response) => {
+        console.log(response.status);
+        if (response.status === 200) {
+          router.replace("/home");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div className={style.modalBackground}>
+        <div className={style.modal}>
+          <div className={style.modalHeader}>
+            <button className={style.closeButton} onClick={onClickClose}>
+              <svg
+                width={24}
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03"
+              >
+                <g>
+                  <path d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path>
+                </g>
+              </svg>
+            </button>
+            <div>계정을 생성하세요.</div>
+          </div>
+          <form>
+            <div className={style.modalBody}>
+              <div className={style.inputDiv}>
+                <label className={style.inputLabel} htmlFor="id">
+                  아이디
+                </label>
+                <input
+                  id="id"
+                  className={style.input}
+                  type="text"
+                  placeholder=""
+                  value={id}
+                  onChange={onChangeId}
+                />
+              </div>
+              <div className={style.inputDiv}>
+                <label className={style.inputLabel} htmlFor="name">
+                  닉네임
+                </label>
+                <input
+                  id="name"
+                  className={style.input}
+                  type="text"
+                  placeholder=""
+                  value={nickname}
+                  onChange={onChangeNickname}
+                />
+              </div>
+              <div className={style.inputDiv}>
+                <label className={style.inputLabel} htmlFor="password">
+                  비밀번호
+                </label>
+                <input
+                  id="password"
+                  className={style.input}
+                  type="password"
+                  placeholder=""
+                  value={password}
+                  onChange={onChangePassword}
+                />
+              </div>
+              <div className={style.inputDiv}>
+                <label className={style.inputLabel} htmlFor="image">
+                  프로필
+                </label>
+                <input
+                  id="image"
+                  className={style.input}
+                  type="file"
+                  accept="image/*"
+                  onChange={onChangeImageFile}
+                />
+              </div>
+            </div>
+            <div className={style.modalFooter}>
+              <button className={style.actionButton} disabled>
+                가입하기
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </>
+  );
 }
