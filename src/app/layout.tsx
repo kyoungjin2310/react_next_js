@@ -3,6 +3,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import styles from "./page.module.css";
 import { MSWComponent } from "./_component/MswComponent";
+import AuthSession from "./_component/AuthSession";
 
 const notoSansKr = Noto_Sans_KR({
   weight: "400",
@@ -30,7 +31,7 @@ export default function RootLayout({
       </head>
       <body>
         <MSWComponent />
-        <div className={styles.container}>{children}</div>
+        <AuthSession>{children}</AuthSession>
       </body>
     </html>
   );

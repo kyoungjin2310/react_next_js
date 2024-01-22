@@ -1,5 +1,6 @@
 "use server";
 
+import { signIn } from "@/auth";
 import { redirect } from "next/navigation";
 
 type Props =
@@ -38,10 +39,17 @@ export default async (prevState: Props, formData: FormData) => {
       },
     );
     console.log(response.status);
-    console.log(await response.json());
     if (response.status === 403) {
       return { message: "user_exists" };
     }
+    console.log(await response.json());
+    shouldRedirect = true;
+    //회원가입에 로그인까지 같이 하기
+    await signIn("credentials", {
+      username: formData.get("id"),
+      password: formData.get("password"),
+      redirect: false,
+    });
   } catch (error) {
     console.log(error);
     return;

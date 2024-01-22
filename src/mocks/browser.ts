@@ -1,7 +1,7 @@
-//setup
-import { setupServer } from "msw/node";
-import { handlers } from "./handlers";
+import { setupWorker } from 'msw/browser'
+import { handlers } from './handlers'
 
-const server = setupServer(...handlers);
+// This configures a Service Worker with the given request handlers.
+const worker = setupWorker(...handlers)
 
-export default server;
+export default worker;

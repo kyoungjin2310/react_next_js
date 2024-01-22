@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextResponse } from "next/server";
 
 export const {
   handlers: { GET, POST },
@@ -8,6 +9,7 @@ export const {
 } = NextAuth({
   pages: {
     //로그인창, 회원가입창 next auth에 등록
+
     signIn: "/i/flow/login",
     newUser: "/i/flow/signup",
   },
@@ -20,6 +22,7 @@ export const {
             "Content-Type": "application/json",
           },
           //credentials.username, credentials.password 고정
+
           body: JSON.stringify({
             id: credentials.username,
             password: credentials.password,
