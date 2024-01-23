@@ -7,7 +7,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 //데이터 불러오기
 export async function getPostRecommends() {
@@ -27,7 +27,7 @@ export async function getPostRecommends() {
     throw new Error("Failed to fetch data");
   }
 
-  revalidateTag("recommends");
+  revalidatePath("/home");
   return res.json();
 }
 
