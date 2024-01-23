@@ -7,6 +7,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import { revalidateTag } from "next/cache";
 
 //데이터 불러오기
 export async function getPostRecommends() {
@@ -16,8 +17,6 @@ export async function getPostRecommends() {
       next: {
         tags: ["posts", "recommends"],
       },
-      //기본적으로 서버에서 받은 데이터를 저장안하려면
-      cache: "no-store",
     },
   );
   // The return value is *not* serialized
@@ -28,6 +27,7 @@ export async function getPostRecommends() {
     throw new Error("Failed to fetch data");
   }
 
+  revalidateTag("recommends");
   return res.json();
 }
 
