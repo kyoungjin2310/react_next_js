@@ -16,6 +16,8 @@ export async function getPostRecommends() {
       next: {
         tags: ["posts", "recommends"],
       },
+      //기본적으로 서버에서 받은 데이터를 저장안하려면
+      cache: "no-store",
     },
   );
   // The return value is *not* serialized
