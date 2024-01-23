@@ -9,6 +9,7 @@ import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
 import PostArticle from "@/app/(afterLogin)/_component/PostArticle";
 import { faker } from "@faker-js/faker";
 import PostImages from "@/app/(afterLogin)/_component/PostImages";
+import { Post as Posts } from "@/model/Post";
 
 //한글
 dayjs.locale("ko");
@@ -18,20 +19,10 @@ dayjs.extend(relativeTime);
 
 type Props = {
   noImage?: boolean;
+  post: Posts;
 };
-export default function Post({ noImage }: Props) {
-  const target = {
-    postId: 1,
-    User: {
-      id: "test",
-      image:
-        "https://images.unsplash.com/photo-1704996440137-44a1eb3c71ee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      nickname: "test name",
-    },
-    content: "test diary",
-    createdAt: new Date(),
-    Images: [] as any[],
-  };
+export default function Post({ noImage, post }: Props) {
+  const target = post;
 
   if (Math.random() > 0.5 && !noImage) {
     target.Images.push(
