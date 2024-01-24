@@ -20,6 +20,7 @@ function RQProvider({ children }: Props) {
           retryOnMount: true,
           //인터넷 연결이 끊겼다가 다시 접속이 될 경우 데이터를 가져오는 설정
           refetchOnReconnect: false,
+          //데이터 가져오기 실패시 retry하는 설정(횟수 지정가능)
           retry: false,
         },
       },
