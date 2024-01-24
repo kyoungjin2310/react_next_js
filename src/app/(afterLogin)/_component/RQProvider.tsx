@@ -14,6 +14,7 @@ function RQProvider({ children }: Props) {
       defaultOptions: {
         // react-query 전역 설정
         queries: {
+          //탭 전환해서 돌아올 경우 데이터를 새로 가져오는 설정
           refetchOnWindowFocus: false,
           retryOnMount: true,
           refetchOnReconnect: false,
