@@ -18,6 +18,7 @@ function RQProvider({ children }: Props) {
           refetchOnWindowFocus: false,
           //컴포넌트가 mount 되었다가 다시 unmount 되었을때 데이터를 새로 가져오는 설정
           retryOnMount: true,
+          //인터넷 연결이 끊겼다가 다시 접속이 될 경우 데이터를 가져오는 설정
           refetchOnReconnect: false,
           retry: false,
         },
