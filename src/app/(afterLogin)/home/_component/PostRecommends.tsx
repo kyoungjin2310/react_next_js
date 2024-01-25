@@ -13,6 +13,20 @@ export default function PostRecommends() {
     queryFn: getPostRecommends,
     //staleTime : fresh -> stale 시간 조정 단위(ms, Infinity - 항상 fresh)
     staleTime: 60 * 1000,
+    //초기 데이터 - react query Action reset 사용시 initialData 있으면 initialData, 없으면 데이터를 새로 가져옴
+    initialData: () => {
+      return {
+        postId: 0,
+        User: {
+          id: "",
+          nickname: "",
+          image: "",
+        },
+        content: "",
+        createdAt: new Date(),
+        Images: [],
+      };
+    },
   });
 
   useEffect(() => {
