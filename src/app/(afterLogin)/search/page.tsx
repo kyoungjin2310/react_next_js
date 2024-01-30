@@ -3,6 +3,7 @@ import BackButton from "@/app/(afterLogin)/_component/BackButton";
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import Post from "@/app/(afterLogin)/_component/Post";
 import Tab from "../search/_component/Tab";
+import SearchResult from "./_component/SearchResult";
 
 type Props = {
   //query 주소
@@ -25,7 +26,7 @@ export default function Search({ searchParams }: Props) {
         <Tab />
       </div>
       <div className={style.list}>
-        <Post />
+        <SearchResult searchParams={searchParams} />
       </div>
     </main>
   );

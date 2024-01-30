@@ -152,6 +152,7 @@ export const handlers = [
       },
     ]);
   }),
+  // : -> url params
   http.get("/api/search/:tag", ({ request, params }) => {
     const { tag } = params;
     return HttpResponse.json([
