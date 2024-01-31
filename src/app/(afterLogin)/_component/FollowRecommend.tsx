@@ -1,17 +1,13 @@
 "use client";
 
-import FollowButton from "./FollowButton";
 import style from "./followRecommend.module.css";
+import { User } from "@/model/User";
 
-export default function FollowRecommend() {
+type Props = {
+  user: User;
+};
+export default function FollowRecommend({ user }: Props) {
   const onFollow = () => {};
-
-  const user = {
-    id: "elonmusk",
-    nickname: "Elon Musk",
-    image:
-      "https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_normal.jpg",
-  };
 
   return (
     <div className={style.container}>
@@ -25,7 +21,7 @@ export default function FollowRecommend() {
         <div className={style.count}>@{user.id}</div>
       </div>
       <div className={style.followButtonSection}>
-        <FollowButton />
+        <button onClick={onFollow}>팔로우</button>
       </div>
     </div>
   );
