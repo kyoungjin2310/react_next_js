@@ -31,6 +31,7 @@ const delay = (ms: number) =>
   });
 
 export const handlers = [
+  //로그인
   http.post("/api/login", () => {
     console.log("로그인");
     return HttpResponse.json(User[1], {
@@ -39,6 +40,7 @@ export const handlers = [
       },
     });
   }),
+  //로그아웃
   http.post("/api/logout", () => {
     console.log("로그아웃");
     return new HttpResponse(null, {
@@ -47,6 +49,7 @@ export const handlers = [
       },
     });
   }),
+  //회원가입
   http.post("/api/users", async ({ request }) => {
     console.log("회원가입");
     // return HttpResponse.text(JSON.stringify('user_exists'), {
@@ -58,6 +61,8 @@ export const handlers = [
       },
     });
   }),
+
+  //추천 게시글 조회
   http.get("/api/postRecommends", async ({ request }) => {
     await delay(3000);
     const url = new URL(request.url);
@@ -112,6 +117,8 @@ export const handlers = [
       },
     ]);
   }),
+
+  //팔로잉 게시글 조회
   http.get("/api/followingPosts", async ({ request }) => {
     await delay(3000);
     return HttpResponse.json([
@@ -152,6 +159,8 @@ export const handlers = [
       },
     ]);
   }),
+
+  //태그 조회
   // : -> url params
   http.get("/api/search/:tag", ({ request, params }) => {
     const { tag } = params;
@@ -193,6 +202,8 @@ export const handlers = [
       },
     ]);
   }),
+
+  //게시글 조회
   http.get("/api/users/:userId/posts", ({ request, params }) => {
     const { userId } = params;
     return HttpResponse.json([
@@ -233,6 +244,8 @@ export const handlers = [
       },
     ]);
   }),
+
+  //유저정보
   http.get("/api/users/:userId", ({ request, params }): StrictResponse<any> => {
     const { userId } = params;
     const found = User.find((v) => v.id === userId);
@@ -246,6 +259,8 @@ export const handlers = [
       },
     );
   }),
+
+  //postId의 내용 조회
   http.get("/api/posts/:postId", ({ request, params }): StrictResponse<any> => {
     const { postId } = params;
     if (parseInt(postId as string) > 10) {
@@ -268,6 +283,8 @@ export const handlers = [
       createdAt: generateDate(),
     });
   }),
+
+  //postId 댓글조회
   http.get("/api/posts/:postId/comments", ({ request, params }) => {
     const { postId } = params;
     return HttpResponse.json([
@@ -308,9 +325,12 @@ export const handlers = [
       },
     ]);
   }),
+  //팔로우 추천 조회
   http.get("/api/followRecommends", ({ request }) => {
     return HttpResponse.json(User);
   }),
+
+  //트렌드조회
   http.get("/api/trends", ({ request }) => {
     return HttpResponse.json([
       { tagId: 1, title: "test", count: 1264 },
