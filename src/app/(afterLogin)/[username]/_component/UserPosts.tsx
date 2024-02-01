@@ -20,6 +20,8 @@ export default function UserPosts({ username }: Props) {
     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
     gcTime: 300 * 1000,
   });
+
+  //user 조회
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["users", username]);
   console.log("user", user);
