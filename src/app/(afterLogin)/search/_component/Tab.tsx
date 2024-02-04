@@ -3,20 +3,26 @@
 import style from "../search.module.css";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-
 export default function Tab() {
   const [current, setCurrent] = useState("hot");
   const router = useRouter();
   const searchParams = useSearchParams();
   const onClickHot = () => {
     setCurrent("hot");
-    //query string 조회
-    router.replace(`/search?q=${searchParams.get("q")}`);
+    //query string 조회 - searchParams.get("특정값")
+    let url = `/search?${searchParams.get("q")}`;
+    if (searchParams.has("pf")) {
+      url += `&pf=${searchParams.get("pf")}`;
+    }
+    router.replace(url);
   };
   const onClickNew = () => {
     setCurrent("new");
-    //현재 query string 모두 조회
-    router.replace(`/search?${searchParams.toString()}&f=live`);
+    let url = `/search?${searchParams.get("q")}&f=live`;
+    if (searchParams.has("pf")) {
+      url += `&pf=${searchParams.get("pf")}`;
+    }
+    router.replace(url);
   };
 
   return (
