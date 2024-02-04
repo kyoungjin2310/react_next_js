@@ -9,20 +9,16 @@ export default function Tab() {
   const searchParams = useSearchParams();
   const onClickHot = () => {
     setCurrent("hot");
-    //query string 조회 - searchParams.get("특정값")
-    let url = `/search?${searchParams.get("q")}`;
-    if (searchParams.has("pf")) {
-      url += `&pf=${searchParams.get("pf")}`;
-    }
-    router.replace(url);
+    //기존 search params 조회
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("f");
+    router.replace(`/search?${newSearchParams.toString()}`);
   };
   const onClickNew = () => {
     setCurrent("new");
-    let url = `/search?${searchParams.get("q")}&f=live`;
-    if (searchParams.has("pf")) {
-      url += `&pf=${searchParams.get("pf")}`;
-    }
-    router.replace(url);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("f", "live");
+    router.replace(`/search?${newSearchParams.toString()}`);
   };
 
   return (

@@ -11,18 +11,17 @@ export default function RightSearchZone() {
   const router = useRouter();
 
   const onChangeFollow = () => {
-    let url = `/search?q=${searchParams.get("q")}&pf=on`;
-    if (searchParams.has("f")) {
-      url += `&f=${searchParams.get("f")}`;
-    }
-    router.replace(url);
+    //기존 search params 조회
+    const newSearchParams = new URLSearchParams(searchParams);
+    //기존 search params에 추가
+    newSearchParams.set("pf", "on");
+    router.replace(`/search?${newSearchParams.toString()}`);
   };
   const onChangeAll = () => {
-    let url = `/search?$q=${searchParams.get("q")}`;
-    if (searchParams.has("f")) {
-      url += `&f=${searchParams.get("f")}`;
-    }
-    router.replace(url);
+    const newSearchParams = new URLSearchParams(searchParams);
+    //기존 search params 특정값 삭제
+    newSearchParams.delete("pf");
+    router.replace(`/search?${newSearchParams.toString()}`);
   };
   if (pathname === "/explore") {
     return null;
