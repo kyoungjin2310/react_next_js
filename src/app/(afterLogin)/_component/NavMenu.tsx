@@ -1,18 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
 import style from "./navMenu.module.css";
-const NavMenu = () => {
-  //호출된 레이아웃보다 한단계 아래 폴더(현재 라우터 아는방법)
-  const segment = useSelectedLayoutSegment();
+import { useSelectedLayoutSegment } from "next/navigation";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
+export default function NavMenu() {
+  //호출된 레이아웃보다 한단계 아래 폴더(현재 라우터 아는방법)
+
+  const segment = useSelectedLayoutSegment();
   //그 아래 세부폴더까지 알려면(현재 라우터 아는 방법)
   //const segments = useSelectedLayoutSegments()
 
-  const me = {
-    id: "test",
-  };
+  const { data: me } = useSession();
+
+  console.log(segment);
 
   return (
     <>
@@ -121,11 +123,11 @@ const NavMenu = () => {
           </div>
         </Link>
       </li>
-      {me?.id && (
+      {me?.user?.email && (
         <li>
-          <Link href={`/${me?.id}`}>
+          <Link href={`/${me?.user?.email}`}>
             <div className={style.navPill}>
-              {segment === me.id ? (
+              {segment === me.user?.email ? (
                 <>
                   <svg
                     width={26}
@@ -160,6 +162,4 @@ const NavMenu = () => {
       )}
     </>
   );
-};
-
-export default NavMenu;
+}
