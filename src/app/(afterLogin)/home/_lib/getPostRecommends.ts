@@ -1,10 +1,13 @@
 import { revalidatePath } from "next/cache";
 
-//데이터 불러오기
+type Props = {
+  pageParam: number;
+};
 
-export async function getPostRecommends() {
+//데이터 불러오기
+export async function getPostRecommends({ pageParam }: Props) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/recommends`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/recommends?cursor=${pageParam}`,
     {
       next: {
         tags: ["posts", "recommends"],

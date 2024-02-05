@@ -12,9 +12,10 @@ import TabDecider from "./_component/TabDecider";
 export default async function Home() {
   const queryClient = new QueryClient();
   //key에 "post", "recommends"가 있을때는 getPostRecommend 을 실행
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: ["post", "recommends"],
     queryFn: getPostRecommends,
+    initialPageParam: 0,
   });
   const dehydratedState = dehydrate(queryClient);
 
