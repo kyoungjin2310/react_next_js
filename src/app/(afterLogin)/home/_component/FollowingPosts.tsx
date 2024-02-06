@@ -14,6 +14,7 @@ export default function FollowingPosts() {
     gcTime: 300 * 1000,
   });
 
+  //loading 추가
   if (isPending) {
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
