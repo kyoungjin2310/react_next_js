@@ -14,25 +14,32 @@ import styles from "../home.module.css";
 
 export default function PostRecommends() {
   //hasNextPage - 다음페이지가 있으면 true, 없으면 false
-  const { data, fetchNextPage, hasNextPage, isFetching, isPending, isLoading } =
-    useInfiniteQuery<
-      IPost[],
-      Object,
-      InfiniteData<IPost[]>,
-      //queryKey가 같아야함
-      [_1: string, _2: string],
-      number
-    >({
-      queryKey: ["posts", "recommends"],
-      queryFn: getPostRecommends,
-      //staleTime : fresh -> stale 시간 조정 단위(ms, Infinity - 항상 fresh)
-      staleTime: 60 * 1000,
-      getNextPageParam: (lastPage: IPost[]) => {
-        return lastPage[lastPage.length - 1]?.postId;
-      },
-      //초기 데이터 - react query Action reset 사용시 initialData 있으면 initialData, 없으면 데이터를 새로 가져옴
-      initialPageParam: 0,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isPending,
+    isLoading,
+    isError,
+  } = useInfiniteQuery<
+    IPost[],
+    Object,
+    InfiniteData<IPost[]>,
+    //queryKey가 같아야함
+    [_1: string, _2: string],
+    number
+  >({
+    queryKey: ["posts", "recommends"],
+    queryFn: getPostRecommends,
+    //staleTime : fresh -> stale 시간 조정 단위(ms, Infinity - 항상 fresh)
+    staleTime: 60 * 1000,
+    getNextPageParam: (lastPage: IPost[]) => {
+      return lastPage[lastPage.length - 1]?.postId;
+    },
+    //초기 데이터 - react query Action reset 사용시 initialData 있으면 initialData, 없으면 데이터를 새로 가져옴
+    initialPageParam: 0,
+  });
 
   //inView - 처음에는 false, 태그가 보이면 true로 변경
   const { ref, inView } = useInView({
@@ -47,6 +54,10 @@ export default function PostRecommends() {
       !isFetching && hasNextPage && fetchNextPage();
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
+
+  if (isError) {
+    return "error";
+  }
 
   if (isPending) {
     return (
