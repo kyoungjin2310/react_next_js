@@ -1,16 +1,9 @@
 "use server";
 
-import { signIn } from "@/auth";
 import { redirect } from "next/navigation";
+import { signIn } from "@/auth";
 
-type Props =
-  | {
-      message: string | null;
-    }
-  | undefined;
-
-export default async (prevState: Props, formData: FormData) => {
-  //vaild
+export default async (prevState: any, formData: FormData) => {
   if (!formData.get("id") || !(formData.get("id") as string)?.trim()) {
     return { message: "no_id" };
   }
@@ -26,8 +19,7 @@ export default async (prevState: Props, formData: FormData) => {
   if (!formData.get("image")) {
     return { message: "no_image" };
   }
-
-  //server
+  formData.set("nickname", formData.get("name") as string);
   let shouldRedirect = false;
   try {
     const response = await fetch(
@@ -50,12 +42,14 @@ export default async (prevState: Props, formData: FormData) => {
       password: formData.get("password"),
       redirect: false,
     });
-  } catch (error) {
-    console.log(error);
-    return;
+  } catch (err) {
+    console.error(err);
+    return { message: null };
   }
+
   if (shouldRedirect) {
     //redirect -> try/catch문에서 사용금지
-    redirect("/home");
+    redirect("/home"); // try/catch문 안에서 X
   }
+  return { message: null };
 };
