@@ -20,15 +20,14 @@ export default function LoginModal() {
         password,
         redirect: false,
       });
-      console.log("1", response);
-      if (response?.error) {
-        console.log("2", response);
+      if (!response?.ok) {
         setMessage("아이디와 비밀번호가 일치하지 않습니다.");
       } else {
         router.replace("/home");
       }
     } catch (err) {
       console.error(err);
+      setMessage("아이디와 비밀번호가 일치하지 않습니다.");
     }
   };
   const onClickClose = () => {
