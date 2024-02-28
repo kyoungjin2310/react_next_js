@@ -7,8 +7,10 @@ import style from "./home.module.css";
 import TabDeciderSuspense from "./_component/TabDeciderSuspense";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { auth } from "@/auth";
 
 export default async function Home() {
+  const session = await auth();
   const queryClient = new QueryClient();
   //key에 "posts", "recommends"가 있을때는 getPostRecommend 을 실행
   await queryClient.prefetchInfiniteQuery({
@@ -21,7 +23,7 @@ export default async function Home() {
     <main className={style.main}>
       <TabProvider>
         <Tab />
-        <PostForm />
+        <PostForm me={session} />
         <Suspense fallback={<Loading />}>
           <TabDeciderSuspense />
         </Suspense>
