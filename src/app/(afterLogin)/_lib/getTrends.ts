@@ -3,6 +3,7 @@ export async function getTrends() {
     next: {
       tags: ["trends"],
     },
+    credentials: "include",
     cache: "no-store",
   });
   // The return value is *not* serialized
