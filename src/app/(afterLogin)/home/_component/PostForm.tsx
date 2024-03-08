@@ -1,6 +1,12 @@
 "use client";
 
-import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEvent,
+  FormEventHandler,
+  useRef,
+  useState,
+} from "react";
 import style from "./postForm.module.css";
 import { Session } from "@auth/core/types";
 import TextareaAutosize from "react-textarea-autosize";
@@ -8,25 +14,51 @@ import TextareaAutosize from "react-textarea-autosize";
 type Props = {
   me: Session | null;
 };
-
 export default function PostForm({ me }: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<
+    Array<{ dataUrl: string; file: File } | null>
+  >([]);
   const [content, setContent] = useState("");
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   };
 
-  const onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-  };
-
   const onClickButton = () => {
     imageRef.current?.click();
   };
 
+  const onRemoveImage = (index: number) => () => {
+    setPreview((prevPreview) => {
+      const prev = [...prevPreview];
+      prev[index] = null;
+      return prev;
+    });
+  };
+
+  const onUpload: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    if (e.target.files) {
+      Array.from(e.target.files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview((prevPreview) => {
+            const prev = [...prevPreview];
+            prev[index] = {
+              dataUrl: reader.result as string,
+              file,
+            };
+            return prev;
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
   return (
-    <form className={style.postForm} onSubmit={onSubmit}>
+    <form className={style.postForm}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
           <img
@@ -41,6 +73,28 @@ export default function PostForm({ me }: Props) {
           onChange={onChange}
           placeholder="무슨 일이 일어나고 있나요?"
         />
+        <div style={{ display: "flex" }}>
+          {preview.map(
+            (v, index) =>
+              v && (
+                <div
+                  key={index}
+                  style={{ flex: 1 }}
+                  onClick={onRemoveImage(index)}
+                >
+                  <img
+                    src={v.dataUrl}
+                    alt="미리보기"
+                    style={{
+                      width: "100%",
+                      objectFit: "contain",
+                      maxHeight: 100,
+                    }}
+                  />
+                </div>
+              ),
+          )}
+        </div>
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>
@@ -50,6 +104,7 @@ export default function PostForm({ me }: Props) {
                 multiple
                 hidden
                 ref={imageRef}
+                onChange={onUpload}
               />
               <button
                 className={style.uploadButton}
