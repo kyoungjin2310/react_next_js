@@ -27,6 +27,20 @@ export default function PostForm({ me }: Props) {
     setContent(e.target.value);
   };
 
+  const onSubmit: FormEventHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("content", content);
+    preview.forEach((p) => {
+      p && formData.append("images", p.file);
+    });
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
+      method: "post",
+      credentials: "include",
+      body: formData,
+    });
+  };
+
   const onClickButton = () => {
     imageRef.current?.click();
   };
@@ -62,7 +76,7 @@ export default function PostForm({ me }: Props) {
   };
 
   return (
-    <form className={style.postForm}>
+    <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
           <img
