@@ -16,6 +16,8 @@ type Props = {
 };
 export default function PostForm({ me }: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
+
+  //미리보기
   const [preview, setPreview] = useState<
     Array<{ dataUrl: string; file: File } | null>
   >([]);
@@ -42,6 +44,7 @@ export default function PostForm({ me }: Props) {
     if (e.target.files) {
       Array.from(e.target.files).forEach((file, index) => {
         const reader = new FileReader();
+        //readAsDataURL로 읽고, reader.onloadend 함수 실행
         reader.onloadend = () => {
           setPreview((prevPreview) => {
             const prev = [...prevPreview];
@@ -52,6 +55,7 @@ export default function PostForm({ me }: Props) {
             return prev;
           });
         };
+        //readAsDataURL type은 string
         reader.readAsDataURL(file);
       });
     }
@@ -73,6 +77,7 @@ export default function PostForm({ me }: Props) {
           onChange={onChange}
           placeholder="무슨 일이 일어나고 있나요?"
         />
+        {/* 미리보기 */}
         <div style={{ display: "flex" }}>
           {preview.map(
             (v, index) =>
