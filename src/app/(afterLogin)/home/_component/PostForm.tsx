@@ -51,15 +51,34 @@ export default function PostForm({ me }: Props) {
       const newPost = await response.json();
       setContent("");
       setPreview([]);
-      queryClient.setQueryData(
-        ["post", "recommends"],
-        (prevData: { pages: Post[][] }) => {
-          const shallow = { ...prevData, pages: [...prevData.pages] };
-          shallow.pages[0] = [...shallow.pages[0]];
-          prevData.pages[0].unshift(newPost);
-          return prevData;
-        },
-      );
+      if (queryClient.getQueryData(["posts", "recommends"])) {
+        queryClient.setQueryData(
+          ["posts", "recommends"],
+          (prevData: { pages: Post[][] }) => {
+            const shallow = {
+              ...prevData,
+              pages: [...prevData.pages],
+            };
+            shallow.pages[0] = [...shallow.pages[0]];
+            shallow.pages[0].unshift(newPost);
+            return shallow;
+          },
+        );
+      }
+      if (queryClient.getQueryData(["posts", "followings"])) {
+        queryClient.setQueryData(
+          ["posts", "followings"],
+          (prevData: { pages: Post[][] }) => {
+            const shallow = {
+              ...prevData,
+              pages: [...prevData.pages],
+            };
+            shallow.pages[0] = [...shallow.pages[0]];
+            shallow.pages[0].unshift(newPost);
+            return shallow;
+          },
+        );
+      }
     },
     onError(err) {
       console.log(err);
