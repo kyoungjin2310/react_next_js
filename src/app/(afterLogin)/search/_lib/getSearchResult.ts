@@ -7,15 +7,15 @@ export const getSearchResult: QueryFunction<
 > = async ({ queryKey }) => {
   //구조분해
   const [_1, _2, searchParams] = queryKey;
+  const urlSearchParams = new URLSearchParams(searchParams);
   const res = await fetch(
-    `http://localhost:9090/api/search/${
-      searchParams.q
-    }?${searchParams.toString()}`,
+    `http://localhost:9090/api/post?${urlSearchParams.toString()}`,
     {
       //next - 객체가 들어가는 것이 불가능
       next: {
         tags: ["posts", "search", searchParams.q],
       },
+      credentials: "include",
       cache: "no-store",
     },
   );
